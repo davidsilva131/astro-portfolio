@@ -1,4 +1,12 @@
 ---
+import Badge from "../atoms/Badge.astro";
+
+const stack = [
+  { category: "Frontend", items: ["React 18", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS", "Sass", "Tailwind CSS", "Material UI", "Shadcn"] },
+  { category: "State", items: ["Redux", "RTK", "Zustand"] },
+  { category: "Backend & DB", items: ["Node.js", "SQL", "SQLite", "PostgreSQL", "Firebase", "Firestore", "Supabase", "Axios"] },
+  { category: "Tools", items: ["Git", "GitHub", "Azure", "Three.js"] },
+];
 ---
 
 <section id="about" aria-label="About Juan David Silva Contreras" class="max-w-3xl mx-auto px-6 pt-24 pb-20">
@@ -12,15 +20,16 @@
     I build fast, accessible and visually refined web interfaces. Focused on
     crafting clean, maintainable code with modern tools.
   </p>
-  <div class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-zinc-600 dark:text-zinc-400">
-    <span>React</span>
-    <span class="text-zinc-300 dark:text-zinc-700">·</span>
-    <span>TypeScript</span>
-    <span class="text-zinc-300 dark:text-zinc-700">·</span>
-    <span>Next.js</span>
-    <span class="text-zinc-300 dark:text-zinc-700">·</span>
-    <span>Tailwind CSS</span>
-    <span class="text-zinc-300 dark:text-zinc-700">·</span>
-    <span>Astro</span>
+  <div class="mt-8 flex flex-col gap-3">
+    {stack.map(({ category, items }) => (
+      <div class="flex items-start gap-4">
+        <span class="w-24 shrink-0 pt-0.5 text-xs font-mono text-zinc-400 dark:text-zinc-600 uppercase tracking-widest">
+          {category}
+        </span>
+        <div class="flex flex-wrap gap-1.5">
+          {items.map((tech) => <Badge label={tech} />)}
+        </div>
+      </div>
+    ))}
   </div>
 </section>

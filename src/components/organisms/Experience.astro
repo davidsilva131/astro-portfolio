@@ -2,29 +2,56 @@
 import SectionHeader from "../molecules/SectionHeader.astro";
 import ExperienceItem from "../molecules/ExperienceItem.astro";
 
+const VISIBLE_COUNT = 3;
+
 const experience = [
   {
-    period: "2024 — Present",
-    title: "Project name",
+    period: "2026 — Present",
+    title: "LotoPetsPlay",
     description:
-      "Brief description of this project, your role, the problem it solved and the impact it had on users or the business.",
-    stack: ["React", "TypeScript", "Tailwind CSS"],
+      "Roulette-style betting platform built with Next.js and Supabase. Responsible for frontend development, state management with Zustand, and UI implementation using Tailwind CSS.",
+    stack: ["Next.js", "React", "Zustand", "Tailwind CSS", "Supabase"],
   },
   {
-    period: "2023 — 2024",
-    title: "Project name",
+    period: "2024",
+    title: "Agendamiento / Cancillería",
     description:
-      "Brief description of this project, your role, the problem it solved and the impact it had on users or the business.",
-    stack: ["Next.js", "PostgreSQL", "Prisma"],
+      "Platform for scheduling and managing administrative procedures for Colombian foreign ministries. Developed the frontend with React, Redux Toolkit, and Material UI on a Vite build system.",
+    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
   },
   {
-    period: "2022 — 2023",
-    title: "Project name",
+    period: "2024",
+    title: "BeMyself",
     description:
-      "Brief description of this project, your role, the problem it solved and the impact it had on users or the business.",
-    stack: ["Vue.js", "Pinia", "SCSS"],
+      "Platform for managing digital credentials (e-cards) and enabling digital document signing. Built the frontend using React with Redux Toolkit and Material UI.",
+    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
+  },
+  {
+    period: "2023 — Present",
+    title: "Guarda",
+    description:
+      "SICOV project for issuing certificates for legal firearm possession. Contributed to frontend development and led the migration from Webpack to Vite, improving build performance.",
+    stack: ["React", "Redux", "RTK", "Material UI", "Webpack", "Vite"],
+  },
+  {
+    period: "2023 — Present",
+    title: "Aulapp CEAS",
+    description:
+      "Platform for automotive training centers that issues driving training certificates for students and instructors. Developed with React, Redux Toolkit, and Material UI.",
+    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
+  },
+  {
+    period: "2023 — Present",
+    title: "Aulapp CIAS",
+    description:
+      "Educational platform for traffic offenders to complete mandatory remedial courses. Built the frontend with React, Redux Toolkit, and Material UI.",
+    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
   },
 ];
+
+const visibleItems = experience.slice(0, VISIBLE_COUNT);
+const hiddenItems = experience.slice(VISIBLE_COUNT);
+const hasMore = hiddenItems.length > 0;
 ---
 
 <section
@@ -34,6 +61,60 @@ const experience = [
 >
   <SectionHeader label="Experience" title="Projects I've Worked On" />
   <div class="flex flex-col gap-10">
-    {experience.map((item) => <ExperienceItem {...item} />)}
+    {visibleItems.map((item) => <ExperienceItem {...item} />)}
+    {hasMore && (
+      <div id="experience-extra" class="flex flex-col gap-10 hidden">
+        {hiddenItems.map((item) => <ExperienceItem {...item} />)}
+      </div>
+    )}
   </div>
+  {hasMore && (
+    <button
+      id="experience-toggle"
+      aria-expanded="false"
+      aria-controls="experience-extra"
+      class="mt-10 flex items-center gap-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-150"
+    >
+      <span id="experience-toggle-label">
+        Show {hiddenItems.length} more {hiddenItems.length === 1 ? "project" : "projects"}
+      </span>
+      <svg
+        id="experience-toggle-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transition-transform duration-200"
+        aria-hidden="true"
+      >
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </button>
+  )}
 </section>
+
+<script>
+  const btn = document.getElementById("experience-toggle");
+  const extra = document.getElementById("experience-extra");
+  const label = document.getElementById("experience-toggle-label");
+  const icon = document.getElementById("experience-toggle-icon");
+
+  if (btn && extra && label && icon) {
+    const hiddenCount = extra.childElementCount;
+
+    btn.addEventListener("click", () => {
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+      extra.classList.toggle("hidden", isExpanded);
+      btn.setAttribute("aria-expanded", String(!isExpanded));
+      icon.style.transform = isExpanded ? "" : "rotate(180deg)";
+      label.textContent = isExpanded
+        ? `Show ${hiddenCount} more ${hiddenCount === 1 ? "project" : "projects"}`
+        : "Show less";
+    });
+  }
+</script>
