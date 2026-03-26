@@ -2,6 +2,8 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
+import cloudflare from "@astrojs/cloudflare";
+
 const securityHeaders = {
   "Content-Security-Policy":
     "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';",
@@ -22,4 +24,6 @@ export default defineConfig({
       headers: securityHeaders,
     },
   },
+
+  adapter: cloudflare(),
 });
