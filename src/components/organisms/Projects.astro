@@ -1,0 +1,46 @@
+---
+import SectionHeader from "../molecules/SectionHeader.astro";
+import ProjectCard from "../molecules/ProjectCard.astro";
+
+const projects = [
+  {
+    title: "Project name",
+    description:
+      "A short description of what this project does and the problem it solves.",
+    stack: ["React", "Vite", "Tailwind CSS"],
+    status: "completed" as const,
+  },
+  {
+    title: "Project name",
+    description:
+      "A short description of what this project does and the problem it solves.",
+    stack: ["Next.js", "TypeScript", "Supabase"],
+    status: "in-progress" as const,
+  },
+  {
+    title: "Project name",
+    description:
+      "A short description of what this project does and the problem it solves.",
+    stack: ["Astro", "Tailwind CSS"],
+    status: "completed" as const,
+  },
+  {
+    title: "Project name",
+    description:
+      "A short description of what this project does and the problem it solves.",
+    stack: ["Vue.js", "Pinia"],
+    status: "completed" as const,
+  },
+];
+---
+
+<section
+  id="projects"
+  aria-label="Things I've Built"
+  class="max-w-3xl mx-auto px-6 py-20 border-t border-zinc-200/60 dark:border-zinc-800/60"
+>
+  <SectionHeader label="Projects" title="Things I've Built" />
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    {projects.map((project) => <ProjectCard {...project} />)}
+  </div>
+</section>

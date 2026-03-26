@@ -1,0 +1,31 @@
+---
+import Button from "../atoms/Button.astro";
+---
+
+<section
+  id="resume"
+  aria-label="Download My CV"
+  class="max-w-3xl mx-auto px-6 py-20 border-t border-zinc-200/60 dark:border-zinc-800/60"
+>
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+    <div>
+      <span class="text-xs font-semibold tracking-widest uppercase text-cyan-600 dark:text-cyan-400">
+        Resume
+      </span>
+      <h2 class="mt-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+        Download My CV
+      </h2>
+      <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+        Available in English and Spanish.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <Button href="/cv-en.pdf" download="Juan-David-Silva-CV-EN.pdf">
+        Download EN
+      </Button>
+      <Button href="/cv-es.pdf" download="Juan-David-Silva-CV-ES.pdf" variant="ghost">
+        Download ES
+      </Button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+---
+import SectionHeader from "../molecules/SectionHeader.astro";
+import ExperienceItem from "../molecules/ExperienceItem.astro";
+
+const experience = [
+  {
+    period: "2024 — Present",
+    title: "Project name",
+    description:
+      "Brief description of this project, your role, the problem it solved and the impact it had on users or the business.",
+    stack: ["React", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    period: "2023 — 2024",
+    title: "Project name",
+    description:
+      "Brief description of this project, your role, the problem it solved and the impact it had on users or the business.",
+    stack: ["Next.js", "PostgreSQL", "Prisma"],
+  },
+  {
+    period: "2022 — 2023",
+    title: "Project name",
+    description:
+      "Brief description of this project, your role, the problem it solved and the impact it had on users or the business.",
+    stack: ["Vue.js", "Pinia", "SCSS"],
+  },
+];
+---
+
+<section
+  id="experience"
+  aria-label="Projects I've Worked On"
+  class="max-w-3xl mx-auto px-6 py-20 border-t border-zinc-200/60 dark:border-zinc-800/60"
+>
+  <SectionHeader label="Experience" title="Projects I've Worked On" />
+  <div class="flex flex-col gap-10">
+    {experience.map((item) => <ExperienceItem {...item} />)}
+  </div>
+</section>

@@ -1,7 +1,22 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/organisms/Nav.astro";
+import Hero from "../components/organisms/Hero.astro";
+import Experience from "../components/organisms/Experience.astro";
+import Projects from "../components/organisms/Projects.astro";
+import Resume from "../components/organisms/Resume.astro";
+import Contact from "../components/organisms/Contact.astro";
+import Footer from "../components/organisms/Footer.astro";
 ---
 
-<h1 class="text-3xl font-bold underline">
-  Hello world!
-</h1>
+<Layout title="Juan David Silva Contreras — Frontend Developer">
+  <Nav />
+  <main id="main-content">
+    <Hero />
+    <Experience />
+    <Projects />
+    <Resume />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>
