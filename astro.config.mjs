@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import sitemap from "@astrojs/sitemap";
 
 const securityHeaders = {
   "Content-Security-Policy":
@@ -13,6 +14,8 @@ const securityHeaders = {
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://jdsc.site",
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
     server: {

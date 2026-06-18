@@ -1,11 +1,23 @@
 ---
 import "../styles/global.css";
 
+const SITE = {
+  title: "Juan David Silva Contreras — Frontend Developer",
+  description:
+    "Portfolio of Juan David Silva, a frontend developer specializing in fast, accessible, and visually refined web interfaces built with React, TypeScript, Astro, and modern tools.",
+  url: "https://jdsc.site",
+  image: "/og-image.png",
+};
+
 interface Props {
   title?: string;
+  description?: string;
+  canonicalUrl?: string;
 }
 
-const { title = "jdsc." } = Astro.props;
+const { title = SITE.title, description = SITE.description, canonicalUrl } = Astro.props;
+const ogImage = `${SITE.url}${SITE.image}`;
+const canonical = canonicalUrl || SITE.url;
 ---
 
 <!doctype html>
@@ -13,9 +25,38 @@ const { title = "jdsc." } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="jdsc." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Juan David Silva Contreras",
+      givenName: "Juan David",
+      familyName: "Silva Contreras",
+      jobTitle: "Frontend Developer",
+      url: SITE.url,
+      image: ogImage,
+      sameAs: [
+        "https://github.com/davidsilva131",
+      ],
+    })}>
+    </script>
+
     <script is:inline>
       (function () {
         const t =
