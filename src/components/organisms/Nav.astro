@@ -11,28 +11,27 @@ const links = [
 ---
 
 <header
-  class="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-zinc-200/60 dark:border-zinc-800/60"
+  class="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-zinc-100 dark:border-zinc-900"
 >
   <nav
     aria-label="Main navigation"
-    class="max-w-3xl mx-auto px-6 h-14 flex items-center justify-between"
+    class="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between"
   >
     <a
       href="#about"
-      class="text-sm font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 rounded-sm"
+      class="text-sm font-bold tracking-tight text-zinc-900 dark:text-white hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white rounded-sm"
     >
       jdsc.
     </a>
 
-    <div class="flex items-center gap-3">
-      <!-- Desktop links -->
-      <ul class="hidden sm:flex items-center gap-5 list-none" role="list">
+    <div class="flex items-center gap-4">
+      <ul class="hidden sm:flex items-center gap-6 list-none" role="list">
         {
           links.map(({ href, label }) => (
             <li>
               <a
                 href={href}
-                class="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 rounded-sm"
+                class="link-underline text-sm text-zinc-500 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-white transition-colors duration-200 aria-[current=page]:text-zinc-900 dark:aria-[current=page]:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white rounded-sm"
               >
                 {label}
               </a>
@@ -43,15 +42,13 @@ const links = [
 
       <ThemeToggle />
 
-      <!-- Mobile hamburger toggle (hidden on sm+) -->
       <button
         id="mobile-menu-toggle"
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
-        class="sm:hidden rounded-md p-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-500"
+        class="sm:hidden rounded-md p-1.5 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white"
       >
-        <!-- Hamburger icon -->
         <svg
           id="icon-open"
           xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +57,7 @@ const links = [
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="1.75"
           stroke-linecap="round"
           stroke-linejoin="round"
           aria-hidden="true"
@@ -69,7 +66,6 @@ const links = [
           <line x1="3" y1="12" x2="21" y2="12" />
           <line x1="3" y1="18" x2="21" y2="18" />
         </svg>
-        <!-- Close icon -->
         <svg
           id="icon-close"
           xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +74,7 @@ const links = [
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="1.75"
           stroke-linecap="round"
           stroke-linejoin="round"
           aria-hidden="true"
@@ -91,11 +87,10 @@ const links = [
     </div>
   </nav>
 
-  <!-- Mobile menu panel -->
   <div
     id="mobile-menu"
     hidden
-    class="sm:hidden border-t border-zinc-200/60 dark:border-zinc-800/60 bg-white/95 dark:bg-black/95 backdrop-blur-md"
+    class="sm:hidden border-t border-zinc-100 dark:border-zinc-900 bg-white dark:bg-black"
   >
     <ul class="max-w-3xl mx-auto px-6 py-4 flex flex-col gap-1 list-none" role="list">
       {
@@ -103,7 +98,7 @@ const links = [
           <li>
             <a
               href={href}
-              class="block py-2 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-500 rounded-sm"
+              class="block py-2.5 text-base text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white rounded-sm"
             >
               {label}
             </a>

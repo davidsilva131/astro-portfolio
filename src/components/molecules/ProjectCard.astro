@@ -1,6 +1,4 @@
 ---
-import Badge from "../atoms/Badge.astro";
-
 interface Props {
   title: string;
   description: string;
@@ -13,39 +11,55 @@ const { title, description, stack, status = "completed", href } = Astro.props;
 ---
 
 <article
-  class="group p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-colors duration-200"
+  class:list={[
+    "group relative p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 transition-all duration-300",
+    href && "hover:border-zinc-300 dark:hover:border-zinc-700 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/40",
+  ]}
 >
   <div class="flex items-start justify-between gap-4">
     <div class="flex items-center gap-2">
       <h3
-        class="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-150"
+        class="text-base font-semibold tracking-tight text-zinc-900 dark:text-white"
+        class:list={[href && "group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-200"]}
       >
         {title}
       </h3>
       {href && (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`View ${title} live (opens in new tab)`}
-          class="text-zinc-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors duration-150"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          class="w-3.5 h-3.5 text-zinc-300 dark:text-zinc-700 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors duration-200"
+          aria-hidden="true"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true">
-            <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Zm6.75-3a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0V3.56l-3.97 3.97a.75.75 0 0 1-1.06-1.06l3.97-3.97H11a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-          </svg>
-        </a>
+          <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Zm6.75-3a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0V3.56l-3.97 3.97a.75.75 0 0 1-1.06-1.06l3.97-3.97H11a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+        </svg>
       )}
     </div>
     {
       status === "in-progress" && (
-        <span class="shrink-0 text-xs font-medium text-amber-600 dark:text-amber-400">
-          In progress
+        <span class="shrink-0 inline-flex items-center gap-1.5 text-xs font-medium text-zinc-400 dark:text-zinc-600">
+          <span class="h-1.5 w-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 animate-pulse"></span>
+          in progress
         </span>
       )
     }
   </div>
-  <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{description}</p>
+  <p class="mt-2.5 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{description}</p>
   <div class="mt-4 flex flex-wrap gap-1.5">
-    {stack.map((tech) => <Badge label={tech} />)}
+    {stack.map((tech) => (
+      <span class="inline-flex items-center rounded-full border border-zinc-200 dark:border-zinc-800 px-2 py-0.5 text-xs text-zinc-500 dark:text-zinc-500">
+        {tech}
+      </span>
+    ))}
   </div>
+  {href && (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`View ${title} live (opens in new tab)`}
+      class="absolute inset-0 rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white"
+    ></a>
+  )}
 </article>

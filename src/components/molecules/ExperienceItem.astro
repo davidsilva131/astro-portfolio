@@ -1,6 +1,4 @@
 ---
-import Badge from "../atoms/Badge.astro";
-
 interface Props {
   period: string;
   title: string;
@@ -11,11 +9,16 @@ interface Props {
 const { period, title, description, stack } = Astro.props;
 ---
 
-<div class="relative pl-6 border-l border-zinc-200 dark:border-zinc-800">
-  <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">{period}</span>
-  <h3 class="mt-1 text-lg font-semibold text-zinc-900 dark:text-zinc-100">{title}</h3>
-  <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{description}</p>
-  <div class="mt-3 flex flex-wrap gap-1.5">
-    {stack.map((tech) => <Badge label={tech} />)}
+<div class="relative pl-8 border-l border-zinc-200 dark:border-zinc-800">
+  <span class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-900 dark:bg-white ring-4 ring-white dark:ring-black"></span>
+  <p class="font-mono text-xs text-zinc-400 dark:text-zinc-600">{period}</p>
+  <h3 class="mt-2 text-xl font-semibold tracking-tight text-zinc-900 dark:text-white">{title}</h3>
+  <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl">{description}</p>
+  <div class="mt-4 flex flex-wrap gap-1.5">
+    {stack.map((tech) => (
+      <span class="inline-flex items-center rounded-full border border-zinc-200 dark:border-zinc-800 px-2.5 py-1 text-xs text-zinc-600 dark:text-zinc-400 transition-colors duration-200 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-zinc-900 dark:hover:text-white">
+        {tech}
+      </span>
+    ))}
   </div>
 </div>

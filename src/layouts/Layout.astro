@@ -67,15 +67,29 @@ const canonical = canonicalUrl || SITE.url;
     </script>
   </head>
   <body
-    class="min-h-screen bg-white text-zinc-900 antialiased transition-[background-color,color] duration-300
-           dark:bg-gradient-to-br dark:from-black dark:via-zinc-950 dark:to-slate-900 dark:text-zinc-100"
+    class="min-h-screen bg-white text-zinc-900 antialiased transition-[background-color,color] duration-500
+           dark:bg-black dark:text-zinc-100"
   >
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-zinc-900 focus:rounded focus:outline focus:outline-2 focus:outline-cyan-500"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-zinc-900 focus:text-white focus:rounded-md focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-zinc-900 dark:focus:bg-white dark:focus:text-black dark:focus:outline-white"
     >
       Skip to main content
     </a>
     <slot />
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
+      );
+      document.querySelectorAll(".animate-in").forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>

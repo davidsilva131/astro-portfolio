@@ -1,6 +1,4 @@
 ---
-import Badge from "../atoms/Badge.astro";
-
 const stack = [
   { category: "Frontend", items: ["React 19", "Astro", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS", "Sass", "Tailwind CSS", "Material UI", "Shadcn"] },
   { category: "State", items: ["Redux", "RTK", "Zustand"] },
@@ -10,25 +8,32 @@ const stack = [
 ];
 ---
 
-<section id="about" aria-label="About Juan David Silva Contreras" class="max-w-3xl mx-auto px-6 pt-24 pb-20">
-  <span class="text-sm font-semibold tracking-widest uppercase text-cyan-600 dark:text-cyan-400">
-    Software Developer
-  </span>
-  <h1 class="mt-4 text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 leading-tight">
-    Juan David<br />Silva Contreras
-  </h1>
-  <p class="mt-6 max-w-xl text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
-    I build fast, accessible and visually refined web interfaces. Focused on
-    crafting clean, maintainable code with modern tools.
-  </p>
-  <div class="mt-8 flex flex-col gap-3">
+<section id="about" aria-label="About Juan David Silva Contreras" class="max-w-3xl mx-auto px-6 pt-32 pb-28 sm:pt-40 sm:pb-32">
+  <div class="animate-in">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500">
+      Software Developer
+    </p>
+    <h1 class="mt-5 text-5xl font-bold tracking-tighter text-zinc-900 dark:text-white sm:text-7xl leading-[0.95]">
+      Juan David<br />Silva Contreras
+    </h1>
+    <p class="mt-8 max-w-xl text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+      I build fast, accessible and visually refined web interfaces.
+      Focused on crafting clean, maintainable code with modern tools.
+    </p>
+  </div>
+
+  <div class="mt-16 animate-in flex flex-col gap-5" style="transition-delay: 0.1s;">
     {stack.map(({ category, items }) => (
-      <div class="flex items-start gap-4">
-        <span class="w-24 shrink-0 pt-0.5 text-xs font-mono text-zinc-400 dark:text-zinc-600 uppercase tracking-widest">
+      <div class="flex items-baseline gap-4">
+        <span class="w-28 shrink-0 font-mono text-xs uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-600 pt-1">
           {category}
         </span>
         <div class="flex flex-wrap gap-1.5">
-          {items.map((tech) => <Badge label={tech} />)}
+          {items.map((tech) => (
+            <span class="inline-flex items-center rounded-full border border-zinc-200 dark:border-zinc-800 px-2.5 py-1 text-xs text-zinc-600 dark:text-zinc-400 transition-colors duration-200 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-zinc-900 dark:hover:text-white">
+              {tech}
+            </span>
+          ))}
         </div>
       </div>
     ))}

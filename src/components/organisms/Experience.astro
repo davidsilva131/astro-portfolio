@@ -57,13 +57,13 @@ const hasMore = hiddenItems.length > 0;
 <section
   id="experience"
   aria-label="Projects I've Worked On"
-  class="max-w-3xl mx-auto px-6 py-20 border-t border-zinc-200/60 dark:border-zinc-800/60"
+  class="max-w-3xl mx-auto px-6 py-28"
 >
   <SectionHeader label="Experience" title="Projects I've Worked On" />
-  <div class="flex flex-col gap-10">
+  <div class="flex flex-col gap-12">
     {visibleItems.map((item) => <ExperienceItem {...item} />)}
     {hasMore && (
-      <div id="experience-extra" class="flex flex-col gap-10 hidden">
+      <div id="experience-extra" class="flex flex-col gap-12 hidden">
         {hiddenItems.map((item) => <ExperienceItem {...item} />)}
       </div>
     )}
@@ -73,7 +73,7 @@ const hasMore = hiddenItems.length > 0;
       id="experience-toggle"
       aria-expanded="false"
       aria-controls="experience-extra"
-      class="mt-10 flex items-center gap-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-150"
+      class="mt-12 flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white"
     >
       <span id="experience-toggle-label">
         Show {hiddenItems.length} more {hiddenItems.length === 1 ? "project" : "projects"}
