@@ -115,6 +115,14 @@ const hasMore = hiddenItems.length > 0;
       label.textContent = isExpanded
         ? `Show ${hiddenCount} more ${hiddenCount === 1 ? "project" : "projects"}`
         : "Show less";
+
+      if (!isExpanded) {
+        const firstItem = extra.querySelector("h3");
+        if (firstItem) {
+          firstItem.setAttribute("tabindex", "-1");
+          firstItem.focus();
+        }
+      }
     });
   }
 </script>

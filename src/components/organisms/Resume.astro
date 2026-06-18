@@ -1,5 +1,5 @@
 ---
-import Button from "../atoms/Button.astro";
+import Link from "../atoms/Link.astro";
 ---
 
 <section
@@ -20,12 +20,12 @@ import Button from "../atoms/Button.astro";
       </p>
     </div>
     <div class="flex flex-wrap gap-3">
-      <Button href="/cvs/juan-david-silva-cv-en.pdf" download="Juan-David-Silva-CV-EN.pdf">
+      <Link href="/cvs/juan-david-silva-cv-en.pdf" download="Juan-David-Silva-CV-EN.pdf">
         Download EN
-      </Button>
-      <Button href="/cvs/juan-david-silva-cv-es.pdf" download="Juan-David-Silva-CV-ES.pdf" variant="ghost">
+      </Link>
+      <Link href="/cvs/juan-david-silva-cv-es.pdf" download="Juan-David-Silva-CV-ES.pdf" variant="ghost">
         Download ES
-      </Button>
+      </Link>
     </div>
   </div>
 </section>
