@@ -1,0 +1,32 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "skill": {
+      "frontend-design": "allow",
+      "seo-audit": "allow",
+      "caveman": "allow",
+      "grill-me": "allow",
+      "tdd": "allow",
+      "to-issues": "allow",
+      "to-prd": "allow",
+      "zoom-out": "allow"
+    }
+  },
+  "command": {
+    "dev": {
+      "template": "Run the Astro dev server",
+      "description": "Start development server",
+      "command": "pnpm dev"
+    },
+    "build": {
+      "template": "Build the Astro project for production",
+      "description": "Build for production",
+      "command": "pnpm build"
+    },
+    "preview": {
+      "template": "Preview the production build locally",
+      "description": "Preview production build",
+      "command": "pnpm preview"
+    }
+  }
+}
