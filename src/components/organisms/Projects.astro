@@ -2,26 +2,37 @@
 import SectionHeader from "../molecules/SectionHeader.astro";
 import ProjectCard from "../molecules/ProjectCard.astro";
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  stack: string[];
+  status: "completed" | "in-progress";
+  href?: string;
+  source?: string;
+  flagship?: boolean;
+}
+
+const projects: Project[] = [
   {
     title: "LotoPetsPlay",
     description:
       "Gaming platform themed around pets, featuring user accounts, match history, and real-time data management.",
     stack: ["Next.js", "Tailwind CSS", "Supabase"],
-    status: "in-progress" as const,
+    status: "in-progress",
+    flagship: true,
   },
   {
     title: "gh-dash",
     description: "GitHub personal dashboard aggregating repos, PRs and activity via the GitHub API.",
     stack: ["Astro", "React", "Tailwind CSS", "shadcn/ui", "GitHub API"],
-    status: "completed" as const,
+    status: "completed",
     source: "https://github.com/davidsilva131/gh-dash",
   },
   {
     title: "Vikingos",
     description: "VIKINGO'S motorcycle store: catalog, shopping flow and admin on Astro + Supabase.",
     stack: ["Astro", "Tailwind CSS", "Supabase"],
-    status: "in-progress" as const,
+    status: "in-progress",
     href: "https://vikingos-production.up.railway.app",
   },
   {
@@ -29,7 +40,7 @@ const projects = [
     description:
       "Professional portfolio for a video designer and editor, showcasing a work gallery and personal brand presentation.",
     stack: ["Astro", "Tailwind CSS"],
-    status: "completed" as const,
+    status: "completed",
     href: "https://vfx-ayverson.davidsilvac131.workers.dev/",
   },
   {
@@ -37,7 +48,7 @@ const projects = [
     description:
       "Conversational AI recipe generator: chat with a virtual chef, save favorites, and cook with what you have.",
     stack: ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Zustand", "AI"],
-    status: "completed" as const,
+    status: "completed",
     href: "https://recipes-ia.davidsilvac131.workers.dev/",
     source: "https://github.com/davidsilva131/recipes-ia",
   },
@@ -46,7 +57,7 @@ const projects = [
     description:
       "Roulette betting app with 30 themed numbers, automated game scheduling and an admin panel.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    status: "completed" as const,
+    status: "completed",
     source: "https://github.com/davidsilva131/ruleta-apuestas",
   },
   {
@@ -54,14 +65,14 @@ const projects = [
     description:
       "REST API for a todo app: FastAPI, SQLAlchemy 2.0, Alembic migrations and JWT auth.",
     stack: ["FastAPI", "SQLAlchemy", "PostgreSQL", "JWT"],
-    status: "completed" as const,
+    status: "completed",
     source: "https://github.com/davidsilva131/Mytodo-back",
   },
   {
     title: "apk-divisas",
     description: "Cross-platform currency converter for Bs/USD/EUR with calculator and VAT modes.",
     stack: ["Flutter", "Dart"],
-    status: "completed" as const,
+    status: "completed",
     source: "https://github.com/davidsilva131/apk-divisas",
   },
   {
@@ -69,7 +80,7 @@ const projects = [
     description:
       "Registration landing for Academia de Delanteros Eudalio Arriaga, wiring player profiles to WhatsApp.",
     stack: ["Astro", "Tailwind CSS"],
-    status: "completed" as const,
+    status: "completed",
     href: "https://academiaeudalioarriaga.com/",
     source: "https://github.com/davidsilva131/academia-futbol",
   },
@@ -77,7 +88,7 @@ const projects = [
     title: "Revil",
     description: "Landing page for an Instagram growth service built with Astro and React.",
     stack: ["Astro", "React", "Tailwind CSS", "TypeScript"],
-    status: "completed" as const,
+    status: "completed",
     href: "https://revil.shop/",
     source: "https://github.com/davidsilva131/revil",
   },
@@ -85,31 +96,35 @@ const projects = [
     title: "Cocktails-Next",
     description: "Cocktail catalog and search app built with Next.js.",
     stack: ["Next.js", "React", "Tailwind CSS"],
-    status: "completed" as const,
+    status: "completed",
     source: "https://github.com/davidsilva131/Cocktails-Next",
   },
   {
     title: "Quiz-App-With-Zustand",
     description: "Quiz app with React and Zustand state management.",
     stack: ["React", "Zustand"],
-    status: "completed" as const,
+    status: "completed",
     source: "https://github.com/davidsilva131/Quiz-App-With-Zustand",
   },
   {
     title: "landing-tesol",
     description: "Marketing landing for a TESOL service (Next.js).",
     stack: ["Next.js", "React", "Tailwind CSS"],
-    status: "completed" as const,
+    status: "completed",
     source: "https://github.com/davidsilva131/landing-tesol",
   },
   {
     title: "food-now",
     description: "Tracking app for meal deliveries to people living on the streets.",
     stack: ["JavaScript"],
-    status: "completed" as const,
+    status: "completed",
     href: "https://food-now.vercel.app",
   },
 ];
+
+// Tinted covers alternate in a checkerboard rhythm across the two-column grid
+// (row + column parity) so the typographic covers do not read as identical cells.
+const isTinted = (i: number) => (Math.floor(i / 2) + (i % 2)) % 2 === 0;
 ---
 
 <section
@@ -119,6 +134,8 @@ const projects = [
 >
   <SectionHeader title="Things I've Built" />
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-    {projects.map((project) => <ProjectCard {...project} />)}
+    {projects.map((project, i) => (
+      <ProjectCard {...project} tinted={isTinted(i)} />
+    ))}
   </div>
 </section>
