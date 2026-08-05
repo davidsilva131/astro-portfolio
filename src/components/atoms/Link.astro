@@ -3,9 +3,10 @@ interface Props {
   href: string;
   download?: string;
   variant?: "primary" | "ghost";
+  class?: string;
 }
 
-const { href, download, variant = "primary" } = Astro.props;
+const { href, download, variant = "primary", class: className = "" } = Astro.props;
 ---
 
 <a
@@ -16,6 +17,7 @@ const { href, download, variant = "primary" } = Astro.props;
     variant === "primary"
       ? "bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
       : "border border-zinc-200 text-zinc-700 hover:border-zinc-900 hover:text-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-white dark:hover:text-white",
+    className,
   ]}
 >
   <slot />

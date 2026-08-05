@@ -105,11 +105,32 @@
     background-size: 100% 1px;
   }
 
+  .monogram-parallax {
+    animation: monogram-parallax linear;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+    transform-origin: center center;
+  }
+
+  @keyframes monogram-parallax {
+    0% {
+      transform: translateY(-28px) rotate(-4deg);
+    }
+    100% {
+      transform: translateY(28px) rotate(4deg);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-in {
       opacity: 1;
       transform: none;
       transition: none;
+    }
+
+    .monogram-parallax {
+      animation: none !important;
+      transform: none !important;
     }
 
     html {
