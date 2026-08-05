@@ -55,14 +55,22 @@ const hasMore = hiddenItems.length > 0;
 <section
   id="experience"
   aria-label="Client work"
-  class="max-w-3xl mx-auto px-6 py-28 border-t border-zinc-100 dark:border-zinc-900"
+  class="max-w-3xl mx-auto px-4 md:px-6 py-28 border-t border-zinc-100 dark:border-zinc-900"
 >
   <SectionHeader title="Client Work" />
   <div class="flex flex-col gap-12">
-    {visibleItems.map((item) => <ExperienceItem {...item} />)}
+    {visibleItems.map((item, i) => (
+      <div class="animate-in" style={`transition-delay: ${i * 80}ms`}>
+        <ExperienceItem {...item} />
+      </div>
+    ))}
     {hasMore && (
       <div id="experience-extra" class="flex flex-col gap-12 hidden">
-        {hiddenItems.map((item) => <ExperienceItem {...item} />)}
+        {hiddenItems.map((item, i) => (
+          <div class="animate-in" style={`transition-delay: ${(VISIBLE_COUNT + i) * 80}ms`}>
+            <ExperienceItem {...item} />
+          </div>
+        ))}
       </div>
     )}
   </div>

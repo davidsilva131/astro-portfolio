@@ -130,12 +130,14 @@ const isTinted = (i: number) => (Math.floor(i / 2) + (i % 2)) % 2 === 0;
 <section
   id="projects"
   aria-label="Things I've Built"
-  class="max-w-3xl mx-auto px-6 py-28 border-t border-zinc-100 dark:border-zinc-900"
+  class="max-w-3xl mx-auto px-4 md:px-6 py-28 border-t border-zinc-100 dark:border-zinc-900"
 >
   <SectionHeader title="Things I've Built" />
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
     {projects.map((project, i) => (
-      <ProjectCard {...project} tinted={isTinted(i)} />
+      <div class="animate-in h-full" style={`transition-delay: ${Math.floor(i / 2) * 80}ms`}>
+        <ProjectCard {...project} tinted={isTinted(i)} />
+      </div>
     ))}
   </div>
 </section>
