@@ -22,18 +22,26 @@ const projects: Project[] = [
     flagship: true,
   },
   {
-    title: "gh-dash",
-    description: "GitHub personal dashboard aggregating repos, PRs and activity via the GitHub API.",
-    stack: ["Astro", "React", "Tailwind CSS", "shadcn/ui", "GitHub API"],
-    status: "completed",
-    source: "https://github.com/davidsilva131/gh-dash",
-  },
-  {
     title: "Vikingos",
     description: "VIKINGO'S motorcycle store: catalog, shopping flow and admin on Astro + Supabase.",
     stack: ["Astro", "Tailwind CSS", "Supabase"],
     status: "in-progress",
     href: "https://vikingos-production.up.railway.app",
+  },
+  {
+    title: "Mytodo-back",
+    description:
+      "REST API for a todo app: FastAPI, SQLAlchemy 2.0, Alembic migrations and JWT auth.",
+    stack: ["FastAPI", "SQLAlchemy", "PostgreSQL", "JWT"],
+    status: "completed",
+    source: "https://github.com/davidsilva131/Mytodo-back",
+  },
+  {
+    title: "gh-dash",
+    description: "GitHub personal dashboard aggregating repos, PRs and activity via the GitHub API.",
+    stack: ["Astro", "React", "Tailwind CSS", "shadcn/ui", "GitHub API"],
+    status: "completed",
+    source: "https://github.com/davidsilva131/gh-dash",
   },
   {
     title: "VFX Ayverson",
@@ -59,14 +67,6 @@ const projects: Project[] = [
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     status: "completed",
     source: "https://github.com/davidsilva131/ruleta-apuestas",
-  },
-  {
-    title: "Mytodo-back",
-    description:
-      "REST API for a todo app: FastAPI, SQLAlchemy 2.0, Alembic migrations and JWT auth.",
-    stack: ["FastAPI", "SQLAlchemy", "PostgreSQL", "JWT"],
-    status: "completed",
-    source: "https://github.com/davidsilva131/Mytodo-back",
   },
   {
     title: "apk-divisas",
@@ -125,19 +125,89 @@ const projects: Project[] = [
 // Tinted covers alternate in a checkerboard rhythm across the two-column grid
 // (row + column parity) so the typographic covers do not read as identical cells.
 const isTinted = (i: number) => (Math.floor(i / 2) + (i % 2)) % 2 === 0;
+
+const visibleItems = projects.slice(0, 4);
+const hiddenItems = projects.slice(4);
+const hasMore = hiddenItems.length > 0;
 ---
 
 <section
   id="projects"
   aria-label="Things I've Built"
-  class="max-w-3xl mx-auto px-4 md:px-6 py-28 border-t border-zinc-100 dark:border-zinc-900"
+  class="max-w-3xl mx-auto px-4 md:px-6 py-28 border-t border-zinc-200/60 dark:border-zinc-900"
 >
   <SectionHeader title="Things I've Built" />
   <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-    {projects.map((project, i) => (
+    {visibleItems.map((project, i) => (
       <div class="animate-in h-full" style={`transition-delay: ${Math.floor(i / 2) * 80}ms`}>
         <ProjectCard {...project} tinted={isTinted(i)} />
       </div>
     ))}
   </div>
+  {hasMore && (
+    <div id="projects-extra" class="hidden mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+      {hiddenItems.map((project, i) => (
+        <div class="h-full">
+          <ProjectCard {...project} tinted={isTinted(visibleItems.length + i)} />
+        </div>
+      ))}
+    </div>
+  )}
+  {hasMore && (
+    <button
+      id="projects-toggle"
+      aria-expanded="false"
+      aria-controls="projects-extra"
+      class="mt-10 flex items-center gap-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white"
+    >
+      <span id="projects-toggle-label">
+        Show {hiddenItems.length} more {hiddenItems.length === 1 ? "project" : "projects"}
+      </span>
+      <svg
+        id="projects-toggle-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="transition-transform duration-200"
+        aria-hidden="true"
+      >
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </button>
+  )}
 </section>
+
+<script>
+  const btn = document.getElementById("projects-toggle");
+  const extra = document.getElementById("projects-extra");
+  const label = document.getElementById("projects-toggle-label");
+  const icon = document.getElementById("projects-toggle-icon");
+
+  if (btn && extra && label && icon) {
+    const hiddenCount = extra.childElementCount;
+
+    btn.addEventListener("click", () => {
+      const isExpanded = btn.getAttribute("aria-expanded") === "true";
+      extra.classList.toggle("hidden", isExpanded);
+      btn.setAttribute("aria-expanded", String(!isExpanded));
+      icon.style.transform = isExpanded ? "" : "rotate(180deg)";
+      label.textContent = isExpanded
+        ? `Show ${hiddenCount} more ${hiddenCount === 1 ? "project" : "projects"}`
+        : "Show less";
+
+      if (!isExpanded) {
+        const firstItem = extra.querySelector("h3");
+        if (firstItem) {
+          firstItem.setAttribute("tabindex", "-1");
+          firstItem.focus();
+        }
+      }
+    });
+  }
+</script>

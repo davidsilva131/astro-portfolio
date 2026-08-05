@@ -32,8 +32,8 @@ const canonical = canonicalUrl || SITE.url;
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
 
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="jdsc.site" />
@@ -87,8 +87,8 @@ const canonical = canonicalUrl || SITE.url;
     </script>
   </head>
   <body
-    class="min-h-screen bg-white text-zinc-900 antialiased transition-[background-color,color] duration-500
-           dark:bg-black dark:text-zinc-100"
+    class="min-h-screen bg-zinc-50 text-zinc-900 antialiased transition-[background-color,color] duration-500
+           dark:bg-[#0a0a0a] dark:text-zinc-100"
   >
     <a
       href="#main-content"
@@ -96,7 +96,10 @@ const canonical = canonicalUrl || SITE.url;
     >
       Skip to main content
     </a>
-    <slot />
+    <div class="grain" aria-hidden="true"></div>
+    <div class="relative z-10">
+      <slot />
+    </div>
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
@@ -109,7 +112,9 @@ const canonical = canonicalUrl || SITE.url;
         },
         { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
       );
-      document.querySelectorAll(".animate-in").forEach((el) => observer.observe(el));
+      document
+        .querySelectorAll(".animate-in, .animate-in-stagger")
+        .forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>

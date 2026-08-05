@@ -1,15 +1,11 @@
 ---
-import { STACK_CATEGORIES, STACK_MARQUEE } from "../../data/stack";
-
-// Duplicate the list so the CSS keyframe can loop seamlessly
-// (the second half is translated by -50% then wraps).
-const marqueeItems = [...STACK_MARQUEE, ...STACK_MARQUEE];
+import { STACK_CATEGORIES } from "../../data/stack";
 ---
 
 <section
   id="stack"
   aria-label="Tech stack"
-  class="max-w-3xl mx-auto px-4 md:px-6 py-28 border-t border-zinc-100 dark:border-zinc-900 overflow-hidden"
+  class="max-w-3xl mx-auto px-4 md:px-6 py-28 border-t border-zinc-200/60 dark:border-zinc-900"
 >
   <div class="mb-12 animate-in">
     <h2
@@ -17,27 +13,17 @@ const marqueeItems = [...STACK_MARQUEE, ...STACK_MARQUEE];
     >
       Stack
     </h2>
-    <p class="mt-3 max-w-xl text-sm text-zinc-500 dark:text-zinc-500 leading-relaxed">
+    <p class="mt-3 max-w-xl text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
       The tools I reach for, organised by what they do for me.
     </p>
   </div>
 
-  <div
-    class="marquee relative w-screen -mx-4 md:-mx-6 md:max-w-3xl md:mx-auto md:w-full"
-    role="presentation"
-  >
-    <div class="marquee-track flex w-max gap-12 py-4 will-change-transform">
-      {marqueeItems.map((item) => (
-        <span class="font-mono text-sm uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-500 whitespace-nowrap">
-          {item}
-        </span>
-      ))}
-    </div>
-  </div>
-
-  <ul role="list" class="mt-16 flex flex-col gap-10">
+  <ul role="list" class="flex flex-col gap-10">
     {STACK_CATEGORIES.map((cat, i) => (
-      <li class="grid grid-cols-[auto_1fr] gap-6 sm:gap-10 animate-in" style={`transition-delay: ${i * 60}ms`}>
+      <li
+        class="grid grid-cols-[auto_1fr] gap-6 sm:gap-10 animate-in"
+        style={`transition-delay: ${i * 60}ms`}
+      >
         <div class="flex items-baseline gap-4">
           <span class="font-mono text-xs text-zinc-400 dark:text-zinc-600">{cat.index}</span>
           <h3 class="text-sm font-semibold tracking-tight text-zinc-900 dark:text-white whitespace-nowrap">
