@@ -20,10 +20,11 @@ Each entry in the `experience` array must match this interface (defined in `Expe
 
 ```ts
 {
-  period: string;   // e.g. "2023 — 2025" or "2024 — Present"
-  title: string;    // Project name
-  description: string; // Role, problem solved, and business impact — 2–3 sentences max
-  stack: string[];  // Tech stack badges, e.g. ["React", "Redux", "Vite"]
+  period: string;   // e.g. "2023 - 2025" or "2023 - Present" - plain hyphen, never an em-dash
+  role: string;     // e.g. "Frontend Developer"
+  title: string;    // Product / employer name
+  description: string; // Context (product + client) and contribution - 2-3 sentences max
+  stack: string[];  // Tech stack, e.g. ["React", "Redux", "Vite"]
 }
 ```
 
@@ -47,6 +48,7 @@ Do **not** modify `ExperienceItem.astro`, `SectionHeader.astro`, or any other co
 
 - **No placeholders**: Do not keep or introduce "Project name" or lorem ipsum descriptions.
 - **Chronological order**: Latest entry first (most recent `period` at the top).
-- **Period format**: Use `"YYYY — YYYY"` or `"YYYY — Present"`. If the user doesn't provide dates, ask.
+- **Period format**: Use `"YYYY - YYYY"` or `"YYYY - Present"` with a plain hyphen. Never use an em-dash or en-dash.
+- **Role accuracy**: Every entry needs a `role`. Use `"Frontend Developer"` unless the user provides a different title.
 - **Stack accuracy**: Use the exact technology names as provided by the user.
-- **Description tone**: Concise professional English or match the language the user writes in. Keep it 2–3 sentences.
+- **Description tone**: Role and context first (what the product is, for whom, and what you contributed). Concise professional English or match the language the user writes in. Keep it 2–3 sentences.

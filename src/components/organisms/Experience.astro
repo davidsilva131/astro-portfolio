@@ -6,45 +6,43 @@ const VISIBLE_COUNT = 3;
 
 const experience = [
   {
-    period: "2026 — Present",
-    title: "LotoPetsPlay",
-    description:
-      "Roulette-style betting platform built with Next.js and Supabase. Responsible for frontend development, state management with Zustand, and UI implementation using Tailwind CSS.",
-    stack: ["Next.js", "React", "Zustand", "Tailwind CSS", "Supabase"],
-  },
-  {
     period: "2024",
+    role: "Frontend Developer",
     title: "Agendamiento / Cancillería",
     description:
-      "Platform for scheduling and managing administrative procedures for Colombian foreign ministries. Developed the frontend with React, Redux Toolkit, and Material UI on a Vite build system.",
+      "Platform for scheduling and managing administrative procedures for Colombian foreign ministries. Built the frontend with React, Redux Toolkit and Material UI on a Vite build.",
     stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
   },
   {
     period: "2024",
+    role: "Frontend Developer",
     title: "BeMyself",
     description:
-      "Platform for managing digital credentials (e-cards) and enabling digital document signing. Built the frontend using React with Redux Toolkit and Material UI.",
+      "Platform for managing digital credentials (e-cards) and enabling digital document signing. Implemented the frontend with React, Redux Toolkit and Material UI.",
     stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
   },
   {
-    period: "2023 — Present",
+    period: "2023 - Present",
+    role: "Frontend Developer",
     title: "Guarda",
     description:
-      "SICOV project for issuing certificates for legal firearm possession. Contributed to frontend development and led the migration from Webpack to Vite, improving build performance.",
+      "SICOV system for issuing certificates of legal firearm possession. Contributed to the frontend and led the Webpack-to-Vite migration, improving build performance.",
     stack: ["React", "Redux", "RTK", "Material UI", "Webpack", "Vite"],
   },
   {
-    period: "2023 — Present",
+    period: "2023 - Present",
+    role: "Frontend Developer",
     title: "Aulapp CEAS",
     description:
-      "Platform for automotive training centers that issues driving training certificates for students and instructors. Developed with React, Redux Toolkit, and Material UI.",
+      "Platform for automotive training centers that issues driving training certificates to students and instructors. Developed the frontend with React, Redux Toolkit and Material UI.",
     stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
   },
   {
-    period: "2023 — Present",
+    period: "2023 - Present",
+    role: "Frontend Developer",
     title: "Aulapp CIAS",
     description:
-      "Educational platform for traffic offenders to complete mandatory remedial courses. Built the frontend with React, Redux Toolkit, and Material UI.",
+      "Educational platform where traffic offenders complete mandatory remedial courses. Built the frontend with React, Redux Toolkit and Material UI.",
     stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
   },
 ];
@@ -56,10 +54,10 @@ const hasMore = hiddenItems.length > 0;
 
 <section
   id="experience"
-  aria-label="Projects I've Worked On"
-  class="max-w-3xl mx-auto px-6 py-28"
+  aria-label="Client work"
+  class="max-w-3xl mx-auto px-6 py-28 border-t border-zinc-100 dark:border-zinc-900"
 >
-  <SectionHeader title="Projects I've Worked On" />
+  <SectionHeader title="Client Work" />
   <div class="flex flex-col gap-12">
     {visibleItems.map((item) => <ExperienceItem {...item} />)}
     {hasMore && (
@@ -71,12 +69,13 @@ const hasMore = hiddenItems.length > 0;
   {hasMore && (
     <button
       id="experience-toggle"
+      type="button"
       aria-expanded="false"
       aria-controls="experience-extra"
       class="mt-12 flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-zinc-900 dark:focus-visible:outline-white"
     >
       <span id="experience-toggle-label">
-        Show {hiddenItems.length} more {hiddenItems.length === 1 ? "project" : "projects"}
+        Show {hiddenItems.length} more
       </span>
       <svg
         id="experience-toggle-icon"
@@ -112,11 +111,11 @@ const hasMore = hiddenItems.length > 0;
       extra.classList.toggle("hidden", isExpanded);
       btn.setAttribute("aria-expanded", String(!isExpanded));
       icon.style.transform = isExpanded ? "" : "rotate(180deg)";
-      label.textContent = isExpanded
-        ? `Show ${hiddenCount} more ${hiddenCount === 1 ? "project" : "projects"}`
-        : "Show less";
+      label.textContent = isExpanded ? `Show ${hiddenCount} more` : "Show less";
 
-      if (!isExpanded) {
+      if (isExpanded) {
+        btn.focus();
+      } else {
         const firstItem = extra.querySelector("h3");
         if (firstItem) {
           firstItem.setAttribute("tabindex", "-1");
