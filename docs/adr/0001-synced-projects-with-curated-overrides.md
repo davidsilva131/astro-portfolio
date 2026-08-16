@@ -1,0 +1,7 @@
+# Projects section content model: synced public repos + curated overrides
+
+The Things I've Built section used to be a hardcoded array of 14 projects in the Projects component. The user wants new GitHub repositories to appear without editing the portfolio code. We decided the section is fed by the account's public GitHub repositories automatically, plus a curated file of hand-written entries with two roles: supplying projects the API cannot provide (private repos like LotoPetsPlay, Vikingos and food-now, and anything under another organization) and enriching any synced project with content GitHub does not carry (description, stack, in-progress status, flagship flag, live demo link).
+
+We rejected an unfiltered "all public repos" feed because it drags in non-portfolio noise (the profile README repo, old portfolio versions, school projects) and would silently drop the three private projects that are currently featured. We rejected token-based full automation (fetching private repos at build time with a fine-grained PAT) because it adds a credential to the build pipeline for marginal gain — curated entries for a handful of private projects are cheaper and keep editorial control. Synced entries are filtered to non-archived, non-fork repos and ordered by last push, most recent first; curated entries carry an optional rank to float to the top (the LotoPetsPlay flagship stays first). "Synced project" and "curated project" are glossary terms in CONTEXT.md.
+
+Status: accepted
