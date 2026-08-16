@@ -1,8 +1,8 @@
 ---
 interface Props {
   title: string;
-  description: string;
-  stack: string[];
+  description?: string;
+  stack?: string[];
   status?: "completed" | "in-progress";
   href?: string;
   source?: string;
@@ -13,7 +13,7 @@ interface Props {
 const {
   title,
   description,
-  stack,
+  stack = [],
   status = "completed",
   href,
   source,
@@ -69,12 +69,16 @@ const [coverSolid, coverLight] = splitCoverTitle(title);
   </div>
 
   <div class="px-6 pt-5 pb-6 border-t border-zinc-100 dark:border-zinc-900">
-    <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{description}</p>
-    <div class="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-      {stack.map((tech) => (
-        <span class="font-mono text-xs text-zinc-600 dark:text-zinc-400">{tech}</span>
-      ))}
-    </div>
+    {description && (
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{description}</p>
+    )}
+    {stack.length > 0 && (
+      <div class="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+        {stack.map((tech) => (
+          <span class="font-mono text-xs text-zinc-600 dark:text-zinc-400">{tech}</span>
+        ))}
+      </div>
+    )}
     {(href || source) && (
       <div class="relative z-10 mt-5 flex items-center gap-4">
         {href && (
