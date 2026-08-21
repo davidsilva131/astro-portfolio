@@ -17,6 +17,7 @@ export interface Project {
   description?: string;
   stack: string[];
   status: "completed" | "in-progress";
+  art?: string;
   href?: string;
   source?: string;
   flagship: boolean;
@@ -100,6 +101,7 @@ export function buildProjects(repos: GitHubRepo[]): Project[] {
           href: curated.href !== undefined ? curated.href || undefined : target.href,
           source: curated.source ?? target.source,
           flagship: curated.flagship ?? target.flagship,
+          art: curated.art ?? target.art,
         }
       : {
           title: curated.title ?? "Untitled",
@@ -109,6 +111,7 @@ export function buildProjects(repos: GitHubRepo[]): Project[] {
           href: curated.href || undefined,
           source: curated.source,
           flagship: curated.flagship ?? false,
+          art: curated.art,
         };
     merged.push({ project, rank: curated.rank, pushedAt: target?.pushedAt ?? "" });
   }

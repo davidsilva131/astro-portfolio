@@ -8,6 +8,7 @@ interface Props {
   source?: string;
   flagship?: boolean;
   tinted?: boolean;
+  art?: string;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   source,
   flagship = false,
   tinted = false,
+  art,
 } = Astro.props;
 
 // Typographic cover split: the last segment of the name renders in the muted
@@ -44,11 +46,31 @@ const [coverSolid, coverLight] = splitCoverTitle(title);
 >
   <div
     class:list={[
-      "aspect-[4/3] rounded-xl px-6 pt-5 pb-6 flex flex-col justify-between",
+      "relative aspect-[4/3] rounded-xl px-6 pt-5 pb-6 flex flex-col justify-between",
       tinted ? "bg-zinc-50 dark:bg-zinc-900/40" : "bg-white dark:bg-black",
     ]}
   >
-    <div class="flex justify-end">
+    {art && (
+      <img
+        src={art}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 h-full w-full rounded-xl object-cover dark:invert"
+      />
+    )}
+    {art && (
+      <div
+        aria-hidden="true"
+        class:list={[
+          "absolute inset-0 rounded-xl bg-gradient-to-t to-transparent",
+          tinted ? "from-zinc-50 via-zinc-50/70" : "from-white via-white/70",
+          "dark:from-black dark:via-black/70",
+        ]}
+      ></div>
+    )}
+    <div class="relative flex justify-end">
       {status === "in-progress" && (
         <span class="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
           {flagship && (
@@ -61,7 +83,7 @@ const [coverSolid, coverLight] = splitCoverTitle(title);
         </span>
       )}
     </div>
-    <div>
+    <div class="relative">
       <h3
         class="text-[clamp(1.75rem,2.4vw,2.5rem)] font-bold tracking-tight leading-[0.95] text-zinc-900 dark:text-white"
       >
