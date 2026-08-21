@@ -50,6 +50,12 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
     description:
       "SICOV system for issuing certificates of legal firearm possession. Contributed to the frontend and led the Webpack-to-Vite migration, improving build performance.",
     stack: ["React", "Redux", "RTK", "Material UI", "Webpack", "Vite"],
+    metrics: [
+      {
+        value: "Webpack to Vite",
+        label: "build tooling migration",
+      },
+    ],
   },
   {
     period: "2023 - Present",
@@ -58,6 +64,16 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
     description:
       "Platform for automotive training centers that issues driving training certificates to students and instructors. Developed the frontend with React, Redux Toolkit and Material UI.",
     stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
+    metrics: [
+      {
+        value: "JS to TypeScript",
+        label: "full codebase migration",
+      },
+      {
+        value: "Smaller bundles",
+        label: "optimization with YAGNI-driven cleanup",
+      },
+    ],
   },
   {
     period: "2023 - Present",
@@ -66,5 +82,15 @@ export const EXPERIENCE_ENTRIES: ExperienceEntry[] = [
     description:
       "Educational platform where traffic offenders complete mandatory remedial courses. Built the frontend with React, Redux Toolkit and Material UI.",
     stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
+    metrics: [
+      {
+        value: "Webpack to Vite",
+        label: "build tooling migration",
+      },
+      {
+        value: "Lower render times",
+        label: "high-traffic module optimization",
+      },
+    ],
   },
 ];
