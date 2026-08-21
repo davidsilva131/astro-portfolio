@@ -1,54 +1,12 @@
 ---
 import SectionHeader from "../molecules/SectionHeader.astro";
 import ExperienceItem from "../molecules/ExperienceItem.astro";
+import { EXPERIENCE_ENTRIES } from "../../data/experience";
 
 const VISIBLE_COUNT = 3;
 
-const experience = [
-  {
-    period: "2024",
-    role: "Frontend Developer",
-    title: "Agendamiento / Cancillería",
-    description:
-      "Platform for scheduling and managing administrative procedures for Colombian foreign ministries. Built the frontend with React, Redux Toolkit and Material UI on a Vite build.",
-    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
-  },
-  {
-    period: "2024",
-    role: "Frontend Developer",
-    title: "BeMyself",
-    description:
-      "Platform for managing digital credentials (e-cards) and enabling digital document signing. Implemented the frontend with React, Redux Toolkit and Material UI.",
-    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
-  },
-  {
-    period: "2023 - Present",
-    role: "Frontend Developer",
-    title: "Guarda",
-    description:
-      "SICOV system for issuing certificates of legal firearm possession. Contributed to the frontend and led the Webpack-to-Vite migration, improving build performance.",
-    stack: ["React", "Redux", "RTK", "Material UI", "Webpack", "Vite"],
-  },
-  {
-    period: "2023 - Present",
-    role: "Frontend Developer",
-    title: "Aulapp CEAS",
-    description:
-      "Platform for automotive training centers that issues driving training certificates to students and instructors. Developed the frontend with React, Redux Toolkit and Material UI.",
-    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
-  },
-  {
-    period: "2023 - Present",
-    role: "Frontend Developer",
-    title: "Aulapp CIAS",
-    description:
-      "Educational platform where traffic offenders complete mandatory remedial courses. Built the frontend with React, Redux Toolkit and Material UI.",
-    stack: ["React", "Redux", "RTK", "Material UI", "Vite"],
-  },
-];
-
-const visibleItems = experience.slice(0, VISIBLE_COUNT);
-const hiddenItems = experience.slice(VISIBLE_COUNT);
+const visibleItems = EXPERIENCE_ENTRIES.slice(0, VISIBLE_COUNT);
+const hiddenItems = EXPERIENCE_ENTRIES.slice(VISIBLE_COUNT);
 const hasMore = hiddenItems.length > 0;
 ---
 
