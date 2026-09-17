@@ -10,4 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger Cloudflare Pages deploy hook
-        run: curl -sf -X POST "${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK_URL }}"
+        env:
+          HOOK_URL: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK_URL" ]; then
+            echo "::error::Secret CLOUDFLARE_PAGES_DEPLOY_HOOK_URL is not set. Create a deploy hook in Cloudflare Pages (Settings > Deploy hooks) and add it with: gh secret set CLOUDFLARE_PAGES_DEPLOY_HOOK_URL"
+            exit 1
+          fi
+          curl -sf -X POST "$HOOK_URL"
