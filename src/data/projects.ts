@@ -117,6 +117,7 @@ export function buildProjects(repos: GitHubRepo[]): Project[] {
   }
 
   for (const s of synced) {
+    if (s.name === GITHUB_USER) continue; // profile-README repo: not a project
     if (!CURATED_PROJECTS.some((c) => c.repo === s.name)) {
       merged.push({ project: s, pushedAt: s.pushedAt });
     }

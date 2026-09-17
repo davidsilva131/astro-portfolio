@@ -142,7 +142,6 @@ export const CURATED_PROJECTS: CuratedProject[] = [
   // provides title/description/stack; the dither art is curated here.
   { repo: "astro-portfolio", art: "/projects/astro-portfolio.png" },
   { repo: "wraplove", art: "/projects/wraplove.png" },
-  { repo: "davidsilva131", art: "/projects/davidsilva131.png" },
   { repo: "lawyer-bot-ve", art: "/projects/lawyer-bot-ve.png" },
   {
     repo: "skyland",
