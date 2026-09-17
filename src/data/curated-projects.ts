@@ -144,4 +144,12 @@ export const CURATED_PROJECTS: CuratedProject[] = [
   { repo: "wraplove", art: "/projects/wraplove.png" },
   { repo: "davidsilva131", art: "/projects/davidsilva131.png" },
   { repo: "lawyer-bot-ve", art: "/projects/lawyer-bot-ve.png" },
+  {
+    repo: "skyland",
+    title: "Skyland",
+    description:
+      "Betting platform for traditional Venezuelan games (animalitos): player auth, balances and juego management. Go + Astro/React.",
+    stack: ["Go", "Astro", "React", "PostgreSQL"],
+    art: "/projects/skyland.png",
+  },
 ];
