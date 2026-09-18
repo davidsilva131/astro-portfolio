@@ -1,0 +1,182 @@
+---
+// Premium liquid cursor: SVG goo metaball filter merges overlapping particles
+// into a single liquid shape. Trail particles follow with staggered delays
+// and stay close enough to merge visually. Spring physics on the main blob.
+// Disabled for touch pointers and prefers-reduced-motion.
+---
+<div id="cursor-goo" aria-hidden="true">
+  <svg width="0" height="0" style="position:absolute;pointer-events:none">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+        <feColorMatrix
+          in="blur"
+          mode="matrix"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -10"
+          result="goo"
+        />
+        <feBlend in="SourceGraphic" in2="goo" />
+      </filter>
+    </defs>
+  </svg>
+  <div id="cursor-cluster">
+    <div class="cp cp-dot"></div>
+    <div class="cp cp-blob"></div>
+    <div class="cp cp-t1"></div>
+    <div class="cp cp-t2"></div>
+    <div class="cp cp-t3"></div>
+    <div class="cp cp-t4"></div>
+    <div class="cp cp-t5"></div>
+  </div>
+</div>
+
+<style>
+  #cursor-goo {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  #cursor-goo.is-active {
+    opacity: 1;
+  }
+
+  /* All particles live inside this container which carries the goo filter */
+  #cursor-cluster {
+    position: absolute;
+    inset: 0;
+    filter: url(#goo);
+  }
+
+  .cp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 9999px;
+    will-change: transform;
+    background: rgb(24 24 27);
+  }
+  :global(.dark) .cp {
+    background: rgb(244 244 245);
+  }
+
+  /* Sizes: dot is tiny anchor, blob is the main body, trails taper down */
+  .cp-dot  { width: 6px;  height: 6px; }
+  .cp-blob { width: 22px; height: 22px; }
+  .cp-t1   { width: 18px; height: 18px; }
+  .cp-t2   { width: 16px; height: 16px; }
+  .cp-t3   { width: 14px; height: 14px; }
+  .cp-t4   { width: 11px; height: 11px; }
+  .cp-t5   { width: 8px;  height: 8px; }
+
+  /* Hover on interactives: blob swells, dot hides */
+  #cursor-cluster.is-hovering .cp-blob {
+    width: 40px;
+    height: 40px;
+    transition: width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                height 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  #cursor-cluster.is-hovering .cp-dot {
+    width: 0;
+    height: 0;
+  }
+</style>
+
+<script>
+  const fine = window.matchMedia("(pointer: fine)");
+  const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
+
+  if (fine.matches && motion.matches) {
+    const root = document.getElementById("cursor-goo");
+    const cluster = document.getElementById("cursor-cluster");
+    const els = {
+      dot:  cluster.querySelector(".cp-dot"),
+      blob: cluster.querySelector(".cp-blob"),
+      t1:   cluster.querySelector(".cp-t1"),
+      t2:   cluster.querySelector(".cp-t2"),
+      t3:   cluster.querySelector(".cp-t3"),
+      t4:   cluster.querySelector(".cp-t4"),
+      t5:   cluster.querySelector(".cp-t5"),
+    };
+
+    // Mouse position (instant)
+    let mx = innerWidth / 2, my = innerHeight / 2;
+
+    // Blob: spring
+    let bx = mx, by = my, bvx = 0, bvy = 0;
+
+    // Trails: staggered lerp (high = follows close, low = trails far)
+    // They must stay within ~20px of their neighbor to merge via the goo filter
+    const trailState = [
+      { el: els.t1, x: mx, y: my, lerp: 0.28 },
+      { el: els.t2, x: mx, y: my, lerp: 0.22 },
+      { el: els.t3, x: mx, y: my, lerp: 0.17 },
+      { el: els.t4, x: mx, y: my, lerp: 0.13 },
+      { el: els.t5, x: mx, y: my, lerp: 0.09 },
+    ];
+
+    let raf = 0;
+
+    function setPos(el, x, y) {
+      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+    }
+
+    function frame() {
+      // Spring physics for blob
+      const dx = mx - bx;
+      const dy = my - by;
+      bvx += dx * 0.14;
+      bvy += dy * 0.14;
+      bvx *= 0.8;
+      bvy *= 0.8;
+      bx += bvx;
+      by += bvy;
+
+      setPos(els.dot, mx, my);
+      setPos(els.blob, bx, by);
+
+      // Trails: each follows the one ahead (chain), keeping them clustered
+      let prevX = mx, prevY = my;
+      for (const t of trailState) {
+        t.x += (prevX - t.x) * t.lerp;
+        t.y += (prevY - t.y) * t.lerp;
+        setPos(t.el, t.x, t.y);
+        prevX = t.x;
+        prevY = t.y;
+      }
+
+      raf = requestAnimationFrame(frame);
+    }
+
+    window.addEventListener("pointermove", (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      root.classList.add("is-active");
+    }, { passive: true });
+
+    // Hover detection
+    const sel = "a, button, input, textarea, select, [role='button'], [tabindex]";
+    document.addEventListener("mouseover", (e) => {
+      if (e.target.closest(sel)) cluster.classList.add("is-hovering");
+    });
+    document.addEventListener("mouseout", (e) => {
+      if (e.target.closest(sel)) cluster.classList.remove("is-hovering");
+    });
+
+    document.documentElement.addEventListener("mouseleave", () => root.classList.remove("is-active"));
+    document.documentElement.addEventListener("mouseenter", () => root.classList.add("is-active"));
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!raf) {
+        raf = requestAnimationFrame(frame);
+      }
+    });
+
+    raf = requestAnimationFrame(frame);
+  }
+</script>

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import CursorGoo from "../components/atoms/CursorGoo.astro";
 
 const SITE = {
   title: "Juan David Silva Contreras - Software Developer",
@@ -97,6 +98,7 @@ const canonical = canonicalUrl || SITE.url;
       Skip to main content
     </a>
     <div class="grain" aria-hidden="true"></div>
+    <CursorGoo />
     <div class="relative z-10">
       <slot />
     </div>
