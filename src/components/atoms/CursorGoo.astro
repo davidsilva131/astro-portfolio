@@ -71,17 +71,9 @@
   .cp-t4   { width: 11px; height: 11px; }
   .cp-t5   { width: 8px;  height: 8px; }
 
-  /* Hover on interactives: blob swells, dot hides */
-  #cursor-cluster.is-hovering .cp-blob {
-    width: 40px;
-    height: 40px;
-    transition: width 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-                height 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  #cursor-cluster.is-hovering .cp-dot {
-    width: 0;
-    height: 0;
-  }
+  /* Hover swell + click squish are JS-driven via scale on the inline
+     transform; scale() composites on the GPU, width/height would reflow
+     inside the SVG filter every frame. Eased by the spring physics. */
 </style>
 
 <script>
@@ -119,9 +111,12 @@
 
     let raf = 0;
 
-    function setPos(el, x, y) {
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+    function setPos(el, x, y, scale = 1) {
+      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${scale})`;
     }
+
+    // Hover/click states applied as scales on top of the position transform
+    let blobScale = 1, dotScale = 1;
 
     function frame() {
       // Spring physics for blob
@@ -134,8 +129,8 @@
       bx += bvx;
       by += bvy;
 
-      setPos(els.dot, mx, my);
-      setPos(els.blob, bx, by);
+      setPos(els.dot, mx, my, dotScale);
+      setPos(els.blob, bx, by, blobScale);
 
       // Trails: each follows the one ahead (chain), keeping them clustered
       let prevX = mx, prevY = my;
@@ -156,14 +151,50 @@
       root.classList.add("is-active");
     }, { passive: true });
 
-    // Hover detection
-    const sel = "a, button, input, textarea, select, [role='button'], [tabindex]";
+    // Hover on interactives: blob swells, dot hides (scale, not size — GPU only).
+    // Text fields are excluded so the native I-beam caret stays visible.
+    const sel = "a, button, select, [role='button'], [tabindex]";
+    const HOVER_BLOB = 1.8, HOVER_DOT = 0.001;
     document.addEventListener("mouseover", (e) => {
-      if (e.target.closest(sel)) cluster.classList.add("is-hovering");
+      if (e.target.closest(sel)) {
+        cluster.classList.add("is-hovering");
+        blobScale = HOVER_BLOB;
+        dotScale = HOVER_DOT;
+      }
     });
     document.addEventListener("mouseout", (e) => {
-      if (e.target.closest(sel)) cluster.classList.remove("is-hovering");
+      if (e.target.closest(sel)) {
+        cluster.classList.remove("is-hovering");
+        blobScale = 1;
+        dotScale = 1;
+      }
     });
+
+    // Click: squish the cluster
+    document.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(sel)) {
+        blobScale *= 0.7;
+        dotScale *= 0.7;
+      }
+    });
+    document.addEventListener("pointerup", () => {
+      dotScale = cluster.classList.contains("is-hovering") ? HOVER_DOT : 1;
+      blobScale = cluster.classList.contains("is-hovering") ? HOVER_BLOB : 1;
+    });
+
+    // Hide while scrolling: trail lags over content when the page moves
+    let scrollTimer = 0;
+    window.addEventListener(
+      "wheel",
+      () => {
+        root.classList.remove("is-active");
+        clearTimeout(scrollTimer);
+        // restart animation loop if it was canceled while hidden
+        if (!raf) raf = requestAnimationFrame(frame);
+        scrollTimer = setTimeout(() => root.classList.add("is-active"), 150);
+      },
+      { passive: true }
+    );
 
     document.documentElement.addEventListener("mouseleave", () => root.classList.remove("is-active"));
     document.documentElement.addEventListener("mouseenter", () => root.classList.add("is-active"));
